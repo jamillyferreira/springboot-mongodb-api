@@ -3,11 +3,10 @@ package com.jamillyferreira.mongoapi.controller;
 import com.jamillyferreira.mongoapi.dto.UserDTO;
 import com.jamillyferreira.mongoapi.model.User;
 import com.jamillyferreira.mongoapi.service.UserService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,8 +38,20 @@ public class UserController {
         return ResponseEntity.ok().body(dto);
     }
 
+    @PostMapping
+    public ResponseEntity<UserDTO> create(@Valid @RequestBody UserDTO dto) {
+        User user = convertToEntity(dto);
+        User createdUser = service.create(user);
+        return ResponseEntity.status(HttpStatus.CREATED).body(convertToDTO(createdUser));
+    }
 
-    // Metodo p/ converter obj para DTO
+    @PutMapping("/{id}")
+    public ResponseEntity<UserDTO> update(@PathVariable String id, @Valid @RequestBody UserDTO dto) {
+        User user = convertToEntity(dto);
+        User updateUser = service.update(id, user);
+        return ResponseEntity.ok().body(convertToDTO(updateUser));
+    }
+
     private UserDTO convertToDTO(User user) {
         return new UserDTO(user.getId(), user.getName(), user.getEmail());
     }
