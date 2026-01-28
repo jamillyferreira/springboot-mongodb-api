@@ -43,6 +43,9 @@ public class DatabaseSeeder {
 
             postRepository.saveAll(List.of(post1, post2, post3));
 
+            user1.getPosts().addAll(List.of(post1, post2));
+            userRepository.save(user1);
+
             System.out.println("Dados iniciais carregados com sucesso!");
         };
     }

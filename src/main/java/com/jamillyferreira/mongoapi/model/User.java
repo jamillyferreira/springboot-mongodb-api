@@ -3,8 +3,11 @@ package com.jamillyferreira.mongoapi.model;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -19,6 +22,9 @@ public class User {
 
     @Indexed(unique = true) // Índice único no MongoDB
     private String email;
+
+    @DBRef(lazy = true)
+    private List<Post> posts = new ArrayList<>();
 
     public User(String name, String email) {
         this.name = name;
