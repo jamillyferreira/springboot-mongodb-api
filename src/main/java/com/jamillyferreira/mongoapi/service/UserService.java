@@ -33,15 +33,15 @@ public class UserService {
         return repository.insert(user);
     }
 
-    public User update(String id, User user) {
+    public User update(String id, User userUpdateData) {
         User existingUser = findById(id);
 
-        if (!existingUser.getEmail().equals(user.getEmail()) &&
-                repository.existsByEmail(user.getEmail())) {
-            throw new EmailAlreadyExistsException(user.getEmail());
+        if (!existingUser.getEmail().equals(userUpdateData.getEmail()) &&
+                repository.existsByEmail(userUpdateData.getEmail())) {
+            throw new EmailAlreadyExistsException(userUpdateData.getEmail());
         }
-        existingUser.setName(user.getName());
-        existingUser.setEmail(user.getEmail());
+        existingUser.setName(userUpdateData.getName());
+        existingUser.setEmail(userUpdateData.getEmail());
         return repository.save(existingUser);
     }
 
