@@ -1,5 +1,6 @@
 package com.jamillyferreira.mongoapi.model;
 
+import com.jamillyferreira.mongoapi.dto.AuthorDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,9 +23,9 @@ public class Post {
     private Date date;
     private String title;
     private String body;
-    private User author;
+    private AuthorDTO author;
 
-    public Post(Date date, String title, String body, User author) {
+    public Post(Date date, String title, String body, AuthorDTO author) {
         this.date = date;
         this.title = title;
         this.body = body;
