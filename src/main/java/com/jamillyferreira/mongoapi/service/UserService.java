@@ -45,4 +45,9 @@ public class UserService {
         return repository.save(existingUser);
     }
 
+    public void delete(String id) {
+        User user = findById(id);
+        repository.delete(user);
+    }
+
 }
