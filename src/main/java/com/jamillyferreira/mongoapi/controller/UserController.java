@@ -1,6 +1,7 @@
 package com.jamillyferreira.mongoapi.controller;
 
 import com.jamillyferreira.mongoapi.dto.UserDTO;
+import com.jamillyferreira.mongoapi.model.Post;
 import com.jamillyferreira.mongoapi.model.User;
 import com.jamillyferreira.mongoapi.service.UserService;
 import jakarta.validation.Valid;
@@ -56,6 +57,12 @@ public class UserController {
     public ResponseEntity<Void> delete(@PathVariable String id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}/posts")
+    private ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+        User user = service.findById(id);
+        return ResponseEntity.ok().body(user.getPosts());
     }
 
     private UserDTO convertToDTO(User user) {
